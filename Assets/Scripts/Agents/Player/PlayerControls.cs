@@ -76,9 +76,10 @@ public class PlayerControls : MonoBehaviour
         if (IsGrounded() && Input.GetButtonDown("Jump")) {
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
         }
-        velocity.y += gravity * Time.deltaTime;
+        if (!IsGrounded()) {
+            velocity.y += gravity * Time.deltaTime;
+        }
         playerController.Move(velocity * Time.deltaTime);
-        // Debug.Log("grounded? " + IsGrounded());
         if (dashTimer >= 0f) dashTimer -= Time.deltaTime;
     }
 

@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: -3429790349279040479}
   - component: {fileID: 5141193857267892966}
   - component: {fileID: 7166480576637437717}
+  - component: {fileID: -5712337303695418462}
   m_Layer: 0
   m_Name: AlphaCrossbowBolt
   m_TagString: Untagged
@@ -127,6 +128,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10
+  damage: 1
 --- !u!114 &7166480576637437717
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -140,3 +142,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   destroyTime: 7
+--- !u!114 &-5712337303695418462
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1793920345917928715}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 316d901f42cbfa94ab4c33d2066437f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  destroyLayers:
+  - Floor
+  - Enemy

@@ -33,7 +33,7 @@ public class PlayerWeapons : MonoBehaviour {
 
     // Start is called before the first frame update
     void Start() {
-        setActiveWeapon(Weapon.SWORD);
+        setActiveWeapon(Weapon.CROSSBOW);
     }
 
     // Update is called once per frame
@@ -70,6 +70,7 @@ public class PlayerWeapons : MonoBehaviour {
     }
 
     void setActiveWeapon(Weapon newActiveWeapon) {
+        Debug.Log(this.activeWeapon);
         if (this.activeWeapon != newActiveWeapon || this.activeWeapon == null) {
             Debug.Log("Setting new active weapon " + newActiveWeapon);
             if (activeWeaponInstance != null) Destroy(activeWeaponInstance);
@@ -97,24 +98,25 @@ public class PlayerWeapons : MonoBehaviour {
 
     void AttackCrossbow() {
         if (crossbowAmmo > 0) {
-            ShootProjectile(crossbowBolt, crossbowVelocity);
+            ShootProjectile(crossbowBolt, crossbowVelocity, crossbowDamage);
             UseAmmo(Weapon.CROSSBOW, 1);
         }
     }
 
     void AttackCannon() {
         if (cannonAmmo > 0) {
-            ShootProjectile(crossbowBolt, crossbowVelocity);
+            ShootProjectile(crossbowBolt, crossbowVelocity, crossbowDamage);
             UseAmmo(Weapon.CANNON, 1);
         }
     }
 
-    void ShootProjectile(GameObject projectile, float shootVelocity) {
+    void ShootProjectile(GameObject projectile, float shootVelocity, int damage) {
         GameObject projectileInstance = GameObject.Instantiate(projectile);
+        Projectile projectileAttributes = projectileInstance.GetComponent<Projectile>();
+        projectileAttributes.speed = shootVelocity;
+        projectileAttributes.damage = damage;
         projectileInstance.transform.position = firingPosition.position;
         projectileInstance.transform.forward = firingPosition.forward;
-        projectileInstance.GetComponent<Rigidbody>().velocity =
-            firingPosition.forward * shootVelocity;
     }
 
     void UpgradeWeapon(Weapon weapon) {
