@@ -4,19 +4,20 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Projectile : MonoBehaviour {
-    public float speed = 4f;
-    public int damage = 1;
+    private Vector3 parentVelocity = Vector3.zero;
+    private float speed = 4f;
+    private int damage = 1;
 
     private string[] canDamageTags = {
         "Player",
         "Enemy"   
     };
 
-
     // Start is called before the first frame update
     void Start() {
-        gameObject.GetComponent<Rigidbody>().velocity =
-            gameObject.transform.forward * speed;
+        gameObject.GetComponent<Rigidbody>().velocity = gameObject.transform.forward * speed;
+            // Vector3.Normalize(parentVelocity) + 
+            // Debug.Log("parentVelocity:" + parentVelocity);
     }
 
     // Update is called once per frame
@@ -24,8 +25,13 @@ public class Projectile : MonoBehaviour {
         
     }
 
+    public void Setup(float speed, int damage) {
+        this.speed = speed;
+        this.damage = damage;
+    }
+
     void OnTriggerEnter(Collider other) {
-        Debug.Log(other.gameObject.tag);
+        // Debug.Log(other.gameObject.tag);
         if (Array.Find(canDamageTags, arrTag => string.Equals(arrTag, other.gameObject.tag)) != null) {
             AgentHealth agentHealth = other.gameObject.GetComponent<AgentHealth>();
             if (!agentHealth) {
@@ -34,6 +40,7 @@ public class Projectile : MonoBehaviour {
             } else {
                 agentHealth.ChangeHealth(-1 * damage);
             }
+            Destroy(gameObject);
         }
     }
 }

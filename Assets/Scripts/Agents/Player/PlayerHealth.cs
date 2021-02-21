@@ -24,4 +24,7 @@ public class PlayerHealth : AgentHealth {
         // hurt = false;
     }
 
+    protected override void Death() {
+        Debug.Log("EEAHRRGHRG");
+    }
 }

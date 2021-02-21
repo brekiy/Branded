@@ -10,17 +10,18 @@ public class AgentHealth : MonoBehaviour {
 
     protected bool hurt;
 
+    private MeshRenderer[] childRenderers;
     private Color damageFlash;
 
     // Start is called before the first frame update
     void Start() {
-
+        damageFlash = GetComponent<MeshRenderer>().material.color;
     }
 
     // Update is called once per frame
     void Update() {
         if (hurt) damageFlash = flashColor;
-        else damageFlash = Color.Lerp(damageFlash, Color.clear, 5f * Time.deltaTime);
+        else damageFlash = Color.Lerp(damageFlash, Color.clear, 2f * Time.deltaTime);
         hurt = false;
     }
 
@@ -37,8 +38,7 @@ public class AgentHealth : MonoBehaviour {
         hurt = true;
     }
 
-    public void Death() {
-        // die lol
+    protected virtual void Death() {
         Destroy(gameObject);
     }
 }
